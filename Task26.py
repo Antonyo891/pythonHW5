@@ -12,7 +12,7 @@ def RaiseToPower (number:int,power:int)->int:
 
 
 
-number:int=#random.randint(1,25)
-power:int=#random.randint(1,5)
+number:int=random.randint(1,25)
+power:int=random.randint(1,5)
 numberinpower:int =RaiseToPower(number,power)
 print(f'Число {number} в степени {power} = {numberinpower}')
