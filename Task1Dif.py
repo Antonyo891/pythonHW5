@@ -20,30 +20,28 @@ def EnterExpression (expression:str=str())->str:
         print (expression+input1[1:])
         return expression+input1[1:]
     return EnterExpression(expression+input1)
-def CalculatingExpression(expression:str,number:int=0,operations:str=None)->list:
+def CalculatingExpression(expression:str,list1:list)->list:
    string:str=None
    if len(expression)==0:
-       return number
-   if re.Match(r'(',expression)!=None:
-       start:int=re.Match(r'(',expression).start()
-       end:int=re.Match(r')',expression).end()
-       string= expression[start:end]
-       expression = expression.replace(string)
-       number=CalculatingExpression(expression,number) + CalculatingExpression(string,number,None)
-   if   
-   ''' number:str=''
-    for i in expression:
-        if int(i) in range(0,10):
-            number=number+i
-        elif i == ['+']:
-            list.append
-
-             
-    if re.Match(r'(',expression)!=None:'''
-
-
+       return list1
+   for i in expression:
+       if int(i) in range(0,10):
+           string=string+i
+           expression=expression.replace(i,'')
+       elif i=='(':
+           list1.append(string)
+           string=None
+           end:int=re.match(r')',expression).start()
+           expression1=expression[:end]
+           expression=expression[end:]
+           expression=expression+CalculatingExpression(expression1,list1)
+       elif i in ['*','+','-','/']:
+           list1.append(i)
+           expression=expression.replace(i,'')
+       else:
+            return list1
 
 
 
-
-#expression:str=EnterExpression()
+string =EnterExpression()
+list1=CalculatingExpression(string)
