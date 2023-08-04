@@ -17,31 +17,41 @@ def EnterExpression (expression:str=str())->str:
     input1:str=input(expression)
     if input1[len(input1)-1]=='=':
         print ('Конечное выражение:')
-        print (expression+input1[1:])
-        return expression+input1[1:]
+        print (expression+input1[:len(input1)-1])
+        return expression+input1[:len(input1)-1]
     return EnterExpression(expression+input1)
-def CalculatingExpression(expression:str,list1:list)->list:
-   string:str=None
-   if len(expression)==0:
-       return list1
+def ExpressionInList(expression:str)->list:
+   string:str=''
+   list1:list=[]
    for i in expression:
-       if int(i) in range(0,10):
+       if i in [str(items) for items in range(0,10)]:
            string=string+i
-           expression=expression.replace(i,'')
+           expression=expression[1:]
        elif i=='(':
-           list1.append(string)
-           string=None
-           end:int=re.match(r')',expression).start()
-           expression1=expression[:end]
+           if string!='':
+               list1.append(string)
+               string=''
+           end:int=re.search('(\))',expression).end()
+           expression1=expression[1:end-1]
            expression=expression[end:]
-           expression=expression+CalculatingExpression(expression1,list1)
+           list1.append(ExpressionInList(expression1))
+           string=''
+           ExpressionInList(expression)
+           break
        elif i in ['*','+','-','/']:
+           if string!='':
+               list1.append(string)
+               string=''
            list1.append(i)
-           expression=expression.replace(i,'')
-       else:
-            return list1
+           expression=expression[1:]
+   if string!='':
+       list1.append(string)
+       string=''
+   return list1
+#def CalculatingExpression(expressioon:list)->int:
 
 
 
 string =EnterExpression()
-list1=CalculatingExpression(string)
+list1=ExpressionInList(string)
+print(list1)
