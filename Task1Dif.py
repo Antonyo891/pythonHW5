@@ -20,9 +20,9 @@ def EnterExpression (expression:str=str())->str:
         print (expression+input1[:len(input1)-1])
         return expression+input1[:len(input1)-1]
     return EnterExpression(expression+input1)
-def ExpressionInList(expression:str)->list:
+def ExpressionInList(expression:str,list2:list=list())->list:
    string:str=''
-   list1:list=[]
+   list1:list=list2
    for i in expression:
        if i in [str(items) for items in range(0,10)]:
            string=string+i
@@ -34,9 +34,7 @@ def ExpressionInList(expression:str)->list:
            end:int=re.search('(\))',expression).end()
            expression1=expression[1:end-1]
            expression=expression[end:]
-           list1.append(ExpressionInList(expression1))
-           string=''
-           ExpressionInList(expression)
+           list1.append(ExpressionInList(expression1,[]))
            break
        elif i in ['*','+','-','/']:
            if string!='':
@@ -44,10 +42,14 @@ def ExpressionInList(expression:str)->list:
                string=''
            list1.append(i)
            expression=expression[1:]
+           break
    if string!='':
        list1.append(string)
        string=''
-   return list1
+   if len(expression)>0:
+       return ExpressionInList(expression,list1)
+   else:
+       return list1
 #def CalculatingExpression(expressioon:list)->int:
 
 

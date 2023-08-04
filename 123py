@@ -1,10 +1,12 @@
 import re,os
 os.system('cls')
-expression='(345+4)*8+(555+7777)*8'
+'''expression='(345+4)*8+(555+7777)*8'
 name=')'
 #end1:int=re.escape(expression)
 end2=re.search("(\))",expression).end()
 print(end2)
 print(expression[1:end2-1])
 print(expression[end2:])
-print(expression)
+print(expression)'''
+exp=''
+print(len(exp))
